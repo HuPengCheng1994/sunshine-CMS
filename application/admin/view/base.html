@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>后台 | 后台主页</title>
+
+    <link href="__ADMIN__DEFAULT__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__ADMIN__DEFAULT__/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__ADMIN__DEFAULT__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__DEFAULT__/css/style.css" rel="stylesheet">
+    <link href="__ADMIN__DEFAULT__/css/my.css" rel="stylesheet">
+
+    <link href="__ADMIN__DEFAULT__/css/plugins/switchery/switchery.css" rel="stylesheet">
+
+    <link href="__ADMIN__DEFAULT__/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__ADMIN__DEFAULT__/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="__ADMIN__PLUGIN__/simditor/styles/simditor.css"/>
+
+</head>
+
+<body>
+<div id="wrapper">
+    {block name="nav"}{/block}
+    {block name="wrapper"}{/block}
+</div>
+
+
+<!-- Mainly scripts -->
+<script src="__ADMIN__DEFAULT__/js/jquery-3.1.1.min.js"></script>
+<script src="__ADMIN__DEFAULT__/js/popper.min.js"></script>
+<script src="__ADMIN__DEFAULT__/js/bootstrap.min.js"></script>
+<script src="__ADMIN__DEFAULT__/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="__ADMIN__DEFAULT__/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="__ADMIN__DEFAULT__/js/inspinia.js"></script>
+<script src="__ADMIN__DEFAULT__/js/plugins/pace/pace.min.js"></script>
+
+
+<!-- Layer -->
+<script src="__ADMIN__PLUGIN__/layer/layer.js"></script>
+<script src="__ADMIN__PLUGIN__/layui/layui.all.js"></script>
+
+<!-- iCheck -->
+<script src="__ADMIN__DEFAULT__/js/plugins/iCheck/icheck.min.js"></script>
+
+<script type="text/javascript" src="__ADMIN__PLUGIN__/simditor/scripts/module.js"></script>
+<script type="text/javascript" src="__ADMIN__PLUGIN__/simditor/scripts/hotkeys.js"></script>
+<script type="text/javascript" src="__ADMIN__PLUGIN__/simditor/scripts/uploader.js"></script>
+<script type="text/javascript" src="__ADMIN__PLUGIN__/simditor/scripts/simditor.js"></script>
+
+<script type="text/javascript">
+
+    function logout() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: "{:url('admin/login/logout')}",
+            data: '',
+            success: function (obj) {
+                if (obj.msg == '退出成功') {
+                    layer.msg(obj.msg, {icon: 6, time: 1000}, function () {
+                        window.location.replace("{:url('admin/login/index')}");
+                    });
+                } else {
+                    layer.msg(obj.msg, {icon: 5, time: 1000});
+                    return false;
+                }
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+    });
+</script>
+{block name="js"}{/block}
+</body>
+</html>

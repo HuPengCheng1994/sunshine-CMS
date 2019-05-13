@@ -1,0 +1,246 @@
+{extend name="base" /}
+{block name="nav"}
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="block m-t-xs font-bold">{$user['nickname']}</span>
+                        <span class="text-muted text-xs block">{$user['account']}<b class="caret"></b></span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+
+                        <li>
+                            <a href="javascript:" onclick="logout()"><i class="fa fa-sign-out"></i>注销</a>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    NICE
+                </div>
+            </li>
+            <li>
+                <a href="{:url('admin/index/index')}"><i class="fa fa-th-large"></i> <span class="nav-label">后台主页</span></a>
+            </li>
+            <li class="active">
+                <a href="{:url('admin/config/index')}"><i class="fa fa-gears"></i> <span class="nav-label">系统管理</span>
+                    <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{:url('admin/config/index')}"><i class="fa fa-cog"></i>网站配置</a></li>
+                    <li class="active"><a href="{:url('admin/user/index')}"><i class="fa fa-user"></i>用户管理</a></li>
+                    <li><a href="{:url('admin/role/index')}"><i class="fa fa-bookmark"></i>角色管理</a></li>
+                    <li><a href="{:url('admin/auth/index')}"><i class="fa fa-location-arrow"></i>规则配置</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{:url('admin/config/index')}"><i class="fa fa-paper-plane-o"></i> <span
+                        class="nav-label">功能管理</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{:url('admin/cate/index')}"><i class="fa fa-bars"></i>栏目管理</a></li>
+                    <li>
+                        <a href="#"><i class="fa fa-link"></i>友情链接<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" aria-expanded="false">
+                            <li>
+                                <a href="{:url('admin/link/text')}"><i class="fa fa-caret-right"></i>文字链接</a>
+                            </li>
+                            <li>
+                                <a href="{:url('admin/link/image')}"><i class="fa fa-caret-right"></i>图片链接</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="{:url('admin/config/index')}"><i class="fa fa-pencil"></i> <span class="nav-label">内容管理</span>
+                    <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    {volist name="cate" id="vo"}
+                    {eq name="$vo['pid']" value="0" }
+                    <li>
+                        <a href="#" id="damian">{$vo['name']}<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" aria-expanded="false">
+                            {volist name="cate" id="ve"}
+                            {if condition="($ve['pid'] == $vo['id']) "}
+                            <li>
+                                <a href="{:url('admin/Article/index',['cid'=>$ve['id']])}">{$ve['name']}</a>
+                            </li>
+                            {/if}
+                            {/volist}
+                        </ul>
+                    </li>
+                    {/eq}
+
+                    {/volist}
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+{/block}
+{block name="wrapper"}
+<div id="page-wrapper" class="gray-bg">
+    <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                <form role="search" class="navbar-form-custom" method="post" action="#">
+                    <div class="form-group">
+                        <input type="text" placeholder="请输入搜索内容" class="form-control" name="top-search" id="top-search">
+                    </div>
+                </form>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="javascript:" onclick="logout()">
+                        <i class="fa fa-sign-out"></i>注销
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>用户管理</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{:url('admin/user/index')}">系统管理</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <strong>用户管理</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>用户列表</h5>
+                        <div class="ibox-tools">
+                            <button type="button" class="btn btn-default btn-sm refresh" type="button"
+                                    onclick="location.reload();"><i class="fa fa-refresh"></i>&nbsp;刷新
+                            </button>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-9 m-b-xs">
+                                <div class="btn-group btn-group-toggle">
+                                    <a href="{:url('admin/user/create')}" class="btn btn-primary btn-sm"><i
+                                            class="fa fa-user"></i> 添加用户</a>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <form action="{:url('admin/user/index')}">
+                                    <div class="input-group"><input placeholder="请输入账号、昵称、手机号" value="{$keyword}"
+                                                                    name="keyword" type="text"
+                                                                    class="form-control form-control-sm"> <span
+                                            class="input-group-append"> <button type="submit"
+                                                                                class="btn btn-sm btn-primary">搜索
+                                        </button> </span></div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="table-responsive" style="margin-top:10px;">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th width="5%">序号</th>
+                                    <th width="10%">账号</th>
+                                    <th width="15%">昵称</th>
+                                    <th width="15%">手机</th>
+                                    <th width="20%">邮箱</th>
+                                    <th width="15%">状态</th>
+                                    <th width="20%">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name="data" id="vo"}
+                                <tr>
+                                    <td>{$i}</td>
+                                    <td>{$vo['account']}</td>
+                                    <td>{$vo['nickname']}</td>
+                                    <td>{$vo['phone']}</td>
+                                    <td>{$vo['email']}</td>
+                                    <td>{switch name="$vo['status']" }
+                                        {case value="1"}
+                                        <button type="button" class="btn btn-xs btn-primary"><i class="fa fa-heart"></i>
+                                            正常
+                                        </button>
+                                        {/case}
+                                        {case value="0"}
+                                        <button type="button" class="btn btn-xs btn-warning"><i
+                                                class="fa fa-heartbeat"></i> 禁用
+                                        </button>
+                                        {/case}
+                                        {/switch}
+                                    </td>
+                                    <td style="text-align: center">
+                                        <a href="{:url('admin/user/edit',['id'=>$vo['id']])}"
+                                           class="btn btn-info btn-xs"><i class="fa fa-paste"></i>&nbsp;编辑</a>&nbsp;
+                                        <button class="btn btn-danger btn-xs" type="button"
+                                                onclick="userDelete(this,'{:url(\'admin/user/delete\',['id' => $vo.id])}')">
+                                            <i class="fa fa-remove"></i>&nbsp;删除
+                                        </button>
+                                    </td>
+                                </tr>
+                                {/volist}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="float-right">
+            <strong>测试版</strong> 1.0
+        </div>
+        <div>
+            <strong>Copyright</strong> 胡鹏成 &copy; 2014-2018
+        </div>
+    </div>
+</div>
+{/block}
+{block name="js"}
+<script>
+    function userDelete(obj, url) {
+        //询问框
+        layer.confirm('确认删除？', {
+            btn: ['确定', '取消'] //按钮
+            , icon: 3, title: '警告'
+        }, function () {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (ob) {
+                    if (ob.code == 1) {
+                        layer.msg(ob.msg, {icon: 6, time: 1000}, function () {
+                            window.location.reload();
+                        });
+
+                    } else {
+                        layer.msg(ob.msg, {icon: 5, time: 1000}, function () {
+
+                        });
+                    }
+                }
+            })
+        });
+    }
+
+</script>
+{/block}
+
+{/block}
