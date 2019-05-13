@@ -119,7 +119,7 @@
                 success:function(obj){
                     if(obj.code == 1) {
                         layer.msg(obj.msg,{icon: 6,time: 1000},function(){
-                            window.location.reload();
+                            window.location.href = "{:url('admin/login/index')}";
                         });       
                     } else {
                         layer.msg(obj.msg,{icon: 5,time: 1000});

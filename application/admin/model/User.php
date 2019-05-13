@@ -27,13 +27,27 @@ class User extends Model
      */
     public function register($data = [])
     {
-        $data['type']     = 2;
-        $data['status']   = 1;
+        $data['type']       = 1;
+        $data['status']     = 1;
+        $data['nickname']   = '一个刚注册的小朋友';
         $data['password'] = md5($data['password']);
         $result           = $this->save($data);
-        if ($result) {
+        $role = 2;
+
+        //开启事务
+        $this->startTrans();
+        $this->roles()->startTrans();
+        try {
+            $this->save($data);
+            $this->roles()->attach($role);
+            // 提交事务
+            $this->commit();
+            $this->roles()->commit();
             return $this->getData('id');
-        } else {
+        } catch (\Exception $e) {
+            // 回滚事务
+            $this->rollback();
+            $this->roles()->rollback();
             return false;
         }
     }
