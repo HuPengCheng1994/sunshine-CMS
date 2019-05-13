@@ -19,4 +19,10 @@ sunshine CMS —— 是一款基于ThinkPHP5.1后台开发框架。
 WX：HXDD1994
 QQ：1093600435
 
+### 在线演示
+
+https://www.咸鱼.wang/n
+账号：ceshi
+密码：ceshi
+
 
