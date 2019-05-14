@@ -8,14 +8,18 @@ use think\Controller;
 
 class Common extends Controller
 {
+    protected $m = null;
+    protected $c = null;
+    protected $a = null;
+
     protected function initialize()
     {
 
         parent::initialize(); //继承父类初始化方法
 
-        $module     = request()->module();
-        $controller = request()->controller();
-        $action     = request()->action();
+        $this->m = request()->module();
+        $this->c = request()->controller();
+        $this->a = request()->action();
 
         //登录状态验证
         if (!session('loginname', '', 'admin') || !session('loginid', '', 'admin')) {
@@ -30,7 +34,7 @@ class Common extends Controller
         $this->assign('user', $user);
         
         //验证当前用户的权限
-        $this->authCheck(session('loginauth', '', 'admin'), $module, $controller, $action);
+        $this->authCheck(session('loginauth', '', 'admin'));
 
         //查询所有栏目
         $cate = CateModel::all();
@@ -46,10 +50,10 @@ class Common extends Controller
      * @param  [str] $action     [当前方法]
      * @return [code]            [验证结果]
      */
-    private function authCheck($auth, $module, $controller, $action)
+    private function authCheck($auth)
     {
         //构造当前操作的规则
-        $now = $module . '/' . $controller . '/' . $action;
+        $now = $this->m . '/' . $this->c . '/' . $this->a;
 
         //查询当前规则id
         $auth_id = Auth::where('permission', $now)->value('id');
