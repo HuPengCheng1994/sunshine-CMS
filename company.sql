@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 13/05/2019 14:57:59
+ Date: 14/05/2019 10:37:53
 */
 
 SET NAMES utf8mb4;
@@ -73,14 +73,59 @@ CREATE TABLE `think_auth`  (
   `permission` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限',
   `status` int(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of think_auth
 -- ----------------------------
 INSERT INTO `think_auth` VALUES (1, 0, '后台主页', 'admin/index/index', 1);
-INSERT INTO `think_auth` VALUES (2, 0, '网站配置', 'admin/config/index', 1);
-INSERT INTO `think_auth` VALUES (3, 0, '用户管理', 'admin/user/index', 1);
+INSERT INTO `think_auth` VALUES (4, 0, '系统管理', '/', 1);
+INSERT INTO `think_auth` VALUES (5, 0, '功能管理', '/', 1);
+INSERT INTO `think_auth` VALUES (6, 0, '内容管理', '/', 1);
+INSERT INTO `think_auth` VALUES (7, 4, '网站配置', 'admin/config/index', 1);
+INSERT INTO `think_auth` VALUES (8, 4, '用户管理', '/', 1);
+INSERT INTO `think_auth` VALUES (9, 4, '角色管理', '/', 1);
+INSERT INTO `think_auth` VALUES (10, 4, '规则配置', '/', 1);
+INSERT INTO `think_auth` VALUES (11, 8, '用户添加界面', 'admin/user/create', 1);
+INSERT INTO `think_auth` VALUES (12, 8, '用户添加操作', 'admin/user/save', 1);
+INSERT INTO `think_auth` VALUES (13, 8, '用户删除操作', 'admin/user/delete', 1);
+INSERT INTO `think_auth` VALUES (14, 8, '用户编辑界面', 'admin/user/edit', 1);
+INSERT INTO `think_auth` VALUES (15, 8, '用户编辑操作', 'admin/user/update', 1);
+INSERT INTO `think_auth` VALUES (16, 8, '用户列表展示', 'admin/user/index', 1);
+INSERT INTO `think_auth` VALUES (17, 9, '角色添加界面', 'admin/role/create', 1);
+INSERT INTO `think_auth` VALUES (18, 9, '角色添加操作', 'admin/role/save', 1);
+INSERT INTO `think_auth` VALUES (19, 9, '角色删除操作', 'admin/role/delete', 1);
+INSERT INTO `think_auth` VALUES (20, 9, '角色编辑界面', 'admin/role/edit', 1);
+INSERT INTO `think_auth` VALUES (21, 9, '角色编辑操作', 'admin/role/update', 1);
+INSERT INTO `think_auth` VALUES (22, 9, '角色权限配置', 'admin/role/config', 1);
+INSERT INTO `think_auth` VALUES (23, 10, '规则添加界面', 'admin/auth/create', 1);
+INSERT INTO `think_auth` VALUES (24, 10, '规则添加操作', 'admin/auth/save', 1);
+INSERT INTO `think_auth` VALUES (25, 9, '角色列表展示', 'admin/role/index', 1);
+INSERT INTO `think_auth` VALUES (26, 10, '规则删除操作', 'admin/auth/delete', 1);
+INSERT INTO `think_auth` VALUES (27, 10, '规则编辑界面', 'admin/auth/edit', 1);
+INSERT INTO `think_auth` VALUES (28, 10, '规则编辑操作', 'admin/auth/update', 1);
+INSERT INTO `think_auth` VALUES (29, 10, '规则列表展示', 'admin/auth/index', 1);
+INSERT INTO `think_auth` VALUES (30, 5, '栏目管理', '/', 1);
+INSERT INTO `think_auth` VALUES (31, 5, '友情链接', '/', 1);
+INSERT INTO `think_auth` VALUES (32, 30, '栏目添加界面', 'admin/cate/edit', 1);
+INSERT INTO `think_auth` VALUES (33, 30, '栏目添加操作', 'admin/cate/save', 1);
+INSERT INTO `think_auth` VALUES (34, 30, '栏目删除操作', 'admin/cate/delete', 1);
+INSERT INTO `think_auth` VALUES (35, 30, '栏目编辑界面', 'admin/cate/edit', 1);
+INSERT INTO `think_auth` VALUES (36, 30, '栏目编辑操作', 'admin/cate/update', 1);
+INSERT INTO `think_auth` VALUES (37, 30, '栏目列表展示', 'admin/cate/index', 1);
+INSERT INTO `think_auth` VALUES (38, 31, '友情链接添加界面', 'admin/link/create', 1);
+INSERT INTO `think_auth` VALUES (39, 31, '友情链接添加操作', 'admin/link/save', 1);
+INSERT INTO `think_auth` VALUES (40, 31, '友情链接删除操作', 'admin/link/delete', 1);
+INSERT INTO `think_auth` VALUES (41, 31, '友情链接编辑界面', 'admin/link/edit', 1);
+INSERT INTO `think_auth` VALUES (42, 31, '友情链接编辑操作', 'admin/link/update', 1);
+INSERT INTO `think_auth` VALUES (43, 31, '友情链接图片列表展示', 'admin/link/image', 1);
+INSERT INTO `think_auth` VALUES (44, 31, '友情链接文字列表展示', 'admin/link/text', 1);
+INSERT INTO `think_auth` VALUES (45, 6, '内容添加界面', 'admin/article/create', 1);
+INSERT INTO `think_auth` VALUES (46, 6, '内容添加操作', 'admin/article/save', 1);
+INSERT INTO `think_auth` VALUES (47, 6, '内容删除操作', 'admin/article/delete', 1);
+INSERT INTO `think_auth` VALUES (48, 6, '内容编辑界面', 'admin/article/edit', 1);
+INSERT INTO `think_auth` VALUES (49, 6, '内容编辑操作', 'admin/article/update', 1);
+INSERT INTO `think_auth` VALUES (50, 6, '内容展示界面', 'admin/article/index', 1);
 
 -- ----------------------------
 -- Table structure for think_cate
@@ -90,6 +135,7 @@ CREATE TABLE `think_cate`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pid` int(11) NULL DEFAULT 0 COMMENT '上级栏目id',
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '栏目名称',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `type` int(11) NULL DEFAULT 0 COMMENT '栏目类型',
   `status` int(11) NULL DEFAULT NULL COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
@@ -98,17 +144,17 @@ CREATE TABLE `think_cate`  (
 -- ----------------------------
 -- Records of think_cate
 -- ----------------------------
-INSERT INTO `think_cate` VALUES (1, 0, '关于博主', 1, 1);
-INSERT INTO `think_cate` VALUES (2, 1, '关于博主', 1, 1);
-INSERT INTO `think_cate` VALUES (3, 0, '前端手记', 1, 1);
-INSERT INTO `think_cate` VALUES (4, 3, 'JavaScript', 2, 1);
-INSERT INTO `think_cate` VALUES (5, 0, '后端手记', 1, 1);
-INSERT INTO `think_cate` VALUES (6, 5, 'PHP', 3, 1);
-INSERT INTO `think_cate` VALUES (7, 3, 'jQuery', 2, 1);
-INSERT INTO `think_cate` VALUES (8, 0, '又臭又硬', 1, 1);
-INSERT INTO `think_cate` VALUES (9, 8, 'Windows', 3, 1);
-INSERT INTO `think_cate` VALUES (10, 8, 'Linux', 3, 1);
-INSERT INTO `think_cate` VALUES (11, 8, 'Mysql', 2, 1);
+INSERT INTO `think_cate` VALUES (1, 0, '关于博主', NULL, 1, 1);
+INSERT INTO `think_cate` VALUES (2, 1, '关于博主', NULL, 1, 1);
+INSERT INTO `think_cate` VALUES (3, 0, '前端手记', NULL, 1, 1);
+INSERT INTO `think_cate` VALUES (4, 3, 'JavaScript', NULL, 2, 1);
+INSERT INTO `think_cate` VALUES (5, 0, '后端手记', NULL, 1, 1);
+INSERT INTO `think_cate` VALUES (6, 5, 'PHP', NULL, 3, 1);
+INSERT INTO `think_cate` VALUES (7, 3, 'jQuery', NULL, 2, 1);
+INSERT INTO `think_cate` VALUES (8, 0, '又臭又硬', NULL, 1, 1);
+INSERT INTO `think_cate` VALUES (9, 8, 'Windows', NULL, 3, 1);
+INSERT INTO `think_cate` VALUES (10, 8, 'Linux', NULL, 3, 1);
+INSERT INTO `think_cate` VALUES (11, 8, 'Mysql', NULL, 2, 1);
 
 -- ----------------------------
 -- Table structure for think_comment
@@ -161,15 +207,13 @@ CREATE TABLE `think_link`  (
   `pic` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `status` tinyint(255) NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of think_link
 -- ----------------------------
-INSERT INTO `think_link` VALUES (1, '??', '???', 1, NULL, 1);
-INSERT INTO `think_link` VALUES (2, '啊实打实', '阿萨德萨达', 1, NULL, 1);
-INSERT INTO `think_link` VALUES (3, '百度', 'http://www.blog.com/', 1, NULL, 1);
-INSERT INTO `think_link` VALUES (4, '测试哦', 'http://www.blog.com/create/2.html', 2, '/uploads/20190424/5fc2a58245cfa40c965668893485822c.png', 1);
+INSERT INTO `think_link` VALUES (5, '前段手记', '链接地址哦', 2, '', 1);
+INSERT INTO `think_link` VALUES (6, '后台主页', 'aha ', 2, '', 1);
 
 -- ----------------------------
 -- Table structure for think_log
@@ -182,15 +226,11 @@ CREATE TABLE `think_log`  (
   `time` int(11) NULL DEFAULT NULL COMMENT '登录时间',
   `msg` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 236 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 258 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of think_log
 -- ----------------------------
-INSERT INTO `think_log` VALUES (197, 1, '127.0.0.1', 1552122169, '登录成功');
-INSERT INTO `think_log` VALUES (198, 1, '127.0.0.1', 1552266736, '登录成功');
-INSERT INTO `think_log` VALUES (199, 1, '127.0.0.1', 1552269348, '登录成功');
-INSERT INTO `think_log` VALUES (200, 1, '127.0.0.1', 1552274281, '登录成功');
 INSERT INTO `think_log` VALUES (201, 1, '127.0.0.1', 1552285504, '登录成功');
 INSERT INTO `think_log` VALUES (202, 1, '127.0.0.1', 1552354835, '登录成功');
 INSERT INTO `think_log` VALUES (203, 1, '127.0.0.1', 1552369378, '登录成功');
@@ -226,6 +266,28 @@ INSERT INTO `think_log` VALUES (232, 1, '127.0.0.1', 1557365922, '登录成功')
 INSERT INTO `think_log` VALUES (233, 1, '42.92.147.160', 1557478466, '登录成功');
 INSERT INTO `think_log` VALUES (234, 1, '42.92.147.160', 1557536379, '登录成功');
 INSERT INTO `think_log` VALUES (235, 1, '42.92.147.160', 1557713148, '登录成功');
+INSERT INTO `think_log` VALUES (236, 2, '42.92.147.160', 1557733460, '登录成功');
+INSERT INTO `think_log` VALUES (237, 3, '42.92.147.160', 1557733584, '登录成功');
+INSERT INTO `think_log` VALUES (238, 4, '219.157.243.208', 1557735905, '登录成功');
+INSERT INTO `think_log` VALUES (239, 4, '219.157.243.208', 1557736201, '登录成功');
+INSERT INTO `think_log` VALUES (240, 1, '42.92.147.160', 1557737720, '登录成功');
+INSERT INTO `think_log` VALUES (241, 6, '42.92.147.160', 1557737908, '登录成功');
+INSERT INTO `think_log` VALUES (242, 7, '219.157.243.208', 1557738485, '登录成功');
+INSERT INTO `think_log` VALUES (243, 1, '42.92.147.160', 1557738505, '登录成功');
+INSERT INTO `think_log` VALUES (244, 8, '42.92.147.160', 1557738919, '登录成功');
+INSERT INTO `think_log` VALUES (245, 1, '42.92.147.160', 1557739018, '登录成功');
+INSERT INTO `think_log` VALUES (246, 9, '42.92.147.160', 1557739652, '密码输入不正确');
+INSERT INTO `think_log` VALUES (247, 9, '42.92.147.160', 1557739662, '登录成功');
+INSERT INTO `think_log` VALUES (248, 3, '113.110.214.147', 1557740212, '登录成功');
+INSERT INTO `think_log` VALUES (249, 3, '113.103.50.83', 1557740242, '登录成功');
+INSERT INTO `think_log` VALUES (250, 3, '42.100.13.145', 1557740279, '密码输入不正确');
+INSERT INTO `think_log` VALUES (251, 3, '42.100.13.145', 1557740292, '密码输入不正确');
+INSERT INTO `think_log` VALUES (252, 1, '113.103.50.83', 1557740310, '密码输入不正确');
+INSERT INTO `think_log` VALUES (253, 3, '223.104.213.3', 1557740322, '登录成功');
+INSERT INTO `think_log` VALUES (254, 3, '113.103.50.83', 1557740452, '密码输入不正确');
+INSERT INTO `think_log` VALUES (255, 3, '113.103.50.83', 1557740461, '登录成功');
+INSERT INTO `think_log` VALUES (256, 3, '113.110.214.147', 1557741309, '登录成功');
+INSERT INTO `think_log` VALUES (257, 3, '113.110.214.147', 1557741549, '登录成功');
 
 -- ----------------------------
 -- Table structure for think_role
@@ -258,8 +320,8 @@ CREATE TABLE `think_role_auth`  (
 -- ----------------------------
 -- Records of think_role_auth
 -- ----------------------------
-INSERT INTO `think_role_auth` VALUES (1, 1, '1,2,5,7,8,9,10,11,12,14,15,16,17,18,19,27,21,22,23,24,25,26,3,30,31,32,33,34,48,35,36,37,38,39,40,41,4,42,43,44,45,46,47');
-INSERT INTO `think_role_auth` VALUES (2, 2, '1,2,12,19,26,3,48,40,41,4,47');
+INSERT INTO `think_role_auth` VALUES (1, 1, '1,4,7,8,11,12,13,14,15,16,9,17,18,19,20,21,22,25,10,23,24,26,27,28,29,5,30,32,33,34,35,36,37,31,38,39,40,41,42,43,44,6,45,46,47,48,49,50');
+INSERT INTO `think_role_auth` VALUES (2, 2, '1,4,11,16,17,25,23,29,5,32,37,38,43,44,6,45,48,50');
 
 -- ----------------------------
 -- Table structure for think_user
@@ -278,13 +340,19 @@ CREATE TABLE `think_user`  (
   `create_time` int(11) NULL DEFAULT NULL COMMENT '添加时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of think_user
 -- ----------------------------
 INSERT INTO `think_user` VALUES (1, '/uploads/20190513/31ac29dabce73de60e60a188d69bd20e.jpg', 'admin', '胡鹏程', '49dec5fb8af4eeef7c95e7f5c66c8ae6', 1, '15117235969', 'Hi_HuPengCheng@163.com', 1, 1557714249, 1557716595);
-INSERT INTO `think_user` VALUES (2, '', 'ceshi', '测试用户', 'cc17c30cd111c7215fc8f51f8790e0e1', 1, '13893456345', '123@qq.com', 1, 1557726137, 1557726137);
+INSERT INTO `think_user` VALUES (3, '/uploads/20190513/127cdecaaa5d3f8560fa84c72ec75eb8.jpg', 'ceshi', '测试', 'cc17c30cd111c7215fc8f51f8790e0e1', 1, '13893456345', '123@qq.com', 1, 1557733505, 1557733505);
+INSERT INTO `think_user` VALUES (4, NULL, 'haichen_so_NB', NULL, '4a09bf16fd5aa30f10dcd7cfa9f68cf3', 1, NULL, NULL, 1, 1557735873, 1557735873);
+INSERT INTO `think_user` VALUES (5, NULL, 'haichen_very_NB', NULL, '4a09bf16fd5aa30f10dcd7cfa9f68cf3', 1, NULL, NULL, 1, 1557736155, 1557736155);
+INSERT INTO `think_user` VALUES (6, NULL, 'wanghaichen_nc', NULL, '49dec5fb8af4eeef7c95e7f5c66c8ae6', 1, NULL, NULL, 1, 1557737857, 1557737857);
+INSERT INTO `think_user` VALUES (7, NULL, 'haichen_baba', NULL, '4a09bf16fd5aa30f10dcd7cfa9f68cf3', 1, NULL, NULL, 1, 1557738472, 1557738472);
+INSERT INTO `think_user` VALUES (8, NULL, 'dijia', '一个小朋友', '49dec5fb8af4eeef7c95e7f5c66c8ae6', 1, NULL, NULL, 1, 1557738908, 1557738908);
+INSERT INTO `think_user` VALUES (9, NULL, 'huluwa', '一个刚注册的小朋友', '49dec5fb8af4eeef7c95e7f5c66c8ae6', 1, NULL, NULL, 1, 1557739568, 1557739568);
 
 -- ----------------------------
 -- Table structure for think_user_role
@@ -295,12 +363,18 @@ CREATE TABLE `think_user_role`  (
   `user_id` int(11) NULL DEFAULT NULL COMMENT '用户id',
   `role_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of think_user_role
 -- ----------------------------
 INSERT INTO `think_user_role` VALUES (1, 1, '1');
-INSERT INTO `think_user_role` VALUES (2, 2, '2');
+INSERT INTO `think_user_role` VALUES (3, 3, '2');
+INSERT INTO `think_user_role` VALUES (4, 4, '2');
+INSERT INTO `think_user_role` VALUES (5, 5, '2');
+INSERT INTO `think_user_role` VALUES (6, 6, '2');
+INSERT INTO `think_user_role` VALUES (7, 7, '2');
+INSERT INTO `think_user_role` VALUES (8, 8, '2');
+INSERT INTO `think_user_role` VALUES (9, 9, '2');
 
 SET FOREIGN_KEY_CHECKS = 1;
