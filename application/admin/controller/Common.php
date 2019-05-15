@@ -3,23 +3,32 @@ namespace app\admin\controller;
 
 use app\admin\model\Auth;
 use app\admin\model\Cate as CateModel;
+use app\admin\model\Log as LogModel;
 use app\admin\model\User;
 use think\Controller;
 
 class Common extends Controller
 {
-    protected $m = null;
-    protected $c = null;
-    protected $a = null;
+
+    protected $mca = null; //当前操作
+    protected $log = null; //日志模型
+    protected $m   = null;
+    protected $c   = null; 
+    protected $a   = null;
 
     protected function initialize()
     {
 
         parent::initialize(); //继承父类初始化方法
 
-        $this->m = request()->module();
-        $this->c = request()->controller();
-        $this->a = request()->action();
+        $m              = request()->module();
+        $c              = request()->controller();
+        $a              = request()->action();
+        $this->mca      = $m . '/' . $c . '/' . $a;
+        $this->log      = new LogModel;
+        $this->m = $m;
+        $this->c = $c;
+        $this->a = $a;
 
         //登录状态验证
         if (!session('loginname', '', 'admin') || !session('loginid', '', 'admin')) {
@@ -53,7 +62,7 @@ class Common extends Controller
     private function authCheck($auth)
     {
         //构造当前操作的规则
-        $now = $this->m . '/' . $this->c . '/' . $this->a;
+        $now = $this->mca;
 
         //查询当前规则id
         $auth_id = Auth::where('permission', $now)->value('id');

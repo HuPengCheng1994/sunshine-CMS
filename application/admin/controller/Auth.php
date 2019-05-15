@@ -56,7 +56,13 @@ class Auth extends Common
                 $this->error($validate->getError());
             }
             $result = $this->model->save($data);
-            $result ? $this->success('添加成功') : $this->error('添加失败');
+            if($result){
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$this->model->id,1);
+                $this->success('添加成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,0,3);
+                $this->error('添加失败');
+            }
         }
     }
 
@@ -89,9 +95,14 @@ class Auth extends Common
             if (!$validate->check($data)) {
                 $this->error($validate->getError());
             }
-            $auth = $this->model->get($id);
-            $result = $auth->save($data);
-            $result ? $this->success('编辑成功') : $this->error('编辑失败');
+            $result = $this->model->save($data,['id'=>$id]);
+            if($result){
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$id,1);
+                $this->success('编辑成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,$id,1);
+                $this->error('编辑失败');
+            }
         }
     }
 
@@ -111,8 +122,15 @@ class Auth extends Common
             if ($data) {
                 $this->error('请先删除子规则再尝试此规则');
             }
-            $result = AuthModel::destroy($id);
-            $result ? $this->success('删除成功') : $this->error('删除失败');
+            $auth   = $this->model->get($id);
+            $result = $auth->delete();
+            if($result) {
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$auth['name'],3);
+                $this->success('删除成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,$auth['name'],3);
+                $this->error('删除失败');
+            }
         }
     }
 }

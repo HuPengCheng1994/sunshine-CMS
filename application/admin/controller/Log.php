@@ -21,7 +21,11 @@ class Log extends Common
      */
     public function index()
     {
-        //
+        $data = $this->model->relation('user')->paginate(10);
+        if(!isset($data['page'])){
+            $data['page'] = 1; 
+        }
+        return view('index', ['data' => $data,'page'=>$data['page']]);
     }
 
     /**

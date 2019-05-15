@@ -1,83 +1,5 @@
 
 {extend name="base" /}
-{block name="nav"}
-<nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu">
-                <li class="nav-header">
-                    <div class="dropdown profile-element">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="block m-t-xs font-bold">{$user['nickname']}</span>
-                            <span class="text-muted text-xs block">{$user['account']}<b class="caret"></b></span>
-                        </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-
-                            <li>
-                                <a href="javascript:" onclick="logout()"><i class="fa fa-sign-out"></i>注销</a>
-                            
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="logo-element">
-                        NICE
-                    </div>
-                </li>
-                <li class="active">
-                    <a href="{:url('admin/index/index')}"><i class="fa fa-th-large"></i> <span class="nav-label">后台主页</span></a>
-                </li>
-                <li>
-                    <a href="{:url('admin/config/index')}"><i class="fa fa-gears"></i> <span class="nav-label">系统管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="{:url('admin/config/index')}"><i class="fa fa-cog"></i>网站配置</a></li>
-                        <li><a href="{:url('admin/user/index')}"><i class="fa fa-user"></i>用户管理</a></li>
-                        <li><a href="{:url('admin/role/index')}"><i class="fa fa-bookmark"></i>角色管理</a></li>
-                        <li><a href="{:url('admin/auth/index')}"><i class="fa fa-location-arrow"></i>规则配置</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{:url('admin/config/index')}"><i class="fa fa-paper-plane-o"></i> <span class="nav-label">功能管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="{:url('admin/cate/index')}"><i class="fa fa-bars"></i>栏目管理</a></li>
-                        <li>
-                            <a href="#"><i class="fa fa-link"></i>友情链接<span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level collapse" aria-expanded="false">
-                                <li>
-                                    <a href="{:url('admin/link/text')}"><i class="fa fa-caret-right"></i>文字链接</a>
-                                </li>
-                                <li>
-                                    <a href="{:url('admin/link/image')}"><i class="fa fa-caret-right"></i>图片链接</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{:url('admin/config/index')}"><i class="fa fa-pencil"></i> <span class="nav-label">内容管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        {volist name="cate" id="vo"}
-                        {eq name="$vo['pid']" value="0" }
-                          <li>
-                            <a href="#" id="damian">{$vo['name']}<span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level collapse" aria-expanded="false">                                
-                                {volist name="cate" id="ve"}
-                                {if condition="($ve['pid'] == $vo['id']) "}
-                                <li>
-                                    <a href="{:url('admin/Article/index',['cid'=>$ve['id']])}">{$ve['name']}</a>
-                                </li>
-                                {/if}
-                                {/volist}
-                            </ul>
-                            </li>  
-                        {/eq}
-                        
-                        {/volist}
-                    </ul>
-                </li>
-            </ul>
-
-        </div>
-</nav>
-{/block}
 {block name="wrapper"}
 <div id="page-wrapper" class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -122,39 +44,6 @@
                         </div>
                     </div>
                 </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox ">
-                    <div class="ibox-title">
-                        <h5>系统日志</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>IP</th>
-                                <th>登录时间</th>
-                                <th>登录状态</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="row">
             <div class="col-lg-12">

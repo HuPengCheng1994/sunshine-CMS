@@ -67,12 +67,19 @@ class Role extends Common
                 // 提交事务
                 $this->model->commit();
                 $this->model->auths()->commit();
-                return ['code' => '1', 'msg' => '添加成功'];
+                $result = true;
             } catch (\Exception $e) {
                 // 回滚事务
                 $this->model->rollback();
                 $this->model->auths()->rollback();
-                return ['code' => '1', 'msg' => '添加失败'];
+                $result = false;
+            }
+            if($result){
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$this->model->id,1);
+                $this->success('添加成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,0,3);
+                $this->error('添加失败');
             }
         }
     }
@@ -110,7 +117,13 @@ class Role extends Common
                 $this->error($validate->getError());
             }
             $result = $this->model->save($data, ['id' => $id]);
-            $result ? $this->success('编辑成功') : $this->error('编辑失败');
+            if($result){
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$id,1);
+                $this->success('编辑成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,$id,1);
+                $this->error('编辑失败');
+            }
         }
     }
 
@@ -136,12 +149,19 @@ class Role extends Common
                 // 提交事务
                 $role->commit();
                 $role->auths()->commit();
-                return ['code' => '1', 'msg' => '删除成功'];
+                $result = true;
             } catch (\Exception $e) {
                 // 回滚事务
                 $role->rollback();
                 $role->auths()->rollback();
-                return ['code' => '1', 'msg' => '删除失败'];
+                $result = false;
+            }
+            if($result) {
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$role['name'],3);
+                $this->success('删除成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,$role['name'],3);
+                $this->error('删除失败');
             }
 
         }

@@ -11,3 +11,9 @@ table{width:100%;
 .ibox-title .ibox-tools{
   margin-right:5px;top:11px
 }
+.pagination{
+	margin-left:1px;
+}
+.layui-upload-file {
+        display: none
+    }

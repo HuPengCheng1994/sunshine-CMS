@@ -48,6 +48,8 @@ Route::get('/cate/delete/:id$', 'admin/cate/delete'); // 后台用户删除访�
 Route::get('/cate/edit/:id$', 'admin/cate/edit'); // 后台用户修改页面访问路由
 Route::post('/cate/update/:id$', 'admin/cate/update'); // 后台角色修改保存访问路由
 
+Route::get('/log$', 'admin/log/index'); // 后台日志列表访问路由
+
 Route::get('/link$', 'admin/link/index'); // 后台友情链接列表访问路由
 Route::get('/image$', 'admin/link/image'); // 后台友情链接图片列表访问路由
 Route::get('/text$', 'admin/link/text'); // 后台友情链接文字列表访问路由

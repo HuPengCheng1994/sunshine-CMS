@@ -16,11 +16,26 @@ class Login extends Model
     {
         $result = $this->loginCheck($data);
         if (isset($result['mid'])) {
+            switch ($result['errorcode']) {
+                case 1:
+                    $msg = '进行【登录操作】，登录状态【登录失败】，原因【用户名输入不正确】';
+                    break;
+                case 2:
+                    $msg = '进行【登录操作】，登录状态【登录失败】，原因【用户密码不正确】';
+                    break;
+                case 3:
+                    $msg = '进行【登录操作】，登录状态【登录失败】，原因【用户已被锁定】';
+                    break;
+                case 4:
+                    $msg = '进行【登录操作】，登录状态【登录成功】';
+                    break;
+            }
             $log = [
-                'mid' => $result['mid'],
-                'ip' => request()->ip(),
+                'mid'  => $result['mid'],
+                'ip'   => request()->ip(),
                 'time' => time(),
-                'msg' => $result['msg'],
+                'msg'  => $msg,
+                'type' => $result['type'],
             ];
 
             //查询当前用户记录条数
@@ -56,17 +71,17 @@ class Login extends Model
 
         // 验证账号
         if (!$res) {
-            return ['code' => 0, 'msg' => '用户名输入不正确'];
+            return ['code' => 0, 'msg' => '用户名输入不正确','type'=>3,'errorcode'=>1];
         }
 
         // 验证密码
         if (md5($data['password']) != $res['password']) {
-            return ['code' => 0, 'msg' => '密码输入不正确', 'mid' => $res['id']];
+            return ['code' => 0, 'msg' => '用户密码不正确', 'mid' => $res['id'],'type'=>3,'errorcode'=>2];
         }
 
         //验证是否被锁定
         if ($res['status'] == 0) {
-            return ['code' => 0, 'msg' => '账户已被锁定', 'mid' => $res['id']];
+            return ['code' => 0, 'msg' => '用户已被锁定', 'mid' => $res['id'],'type'=>3,'errorcode'=>3];
         }
 
         //查询当前用户的角色
@@ -91,7 +106,7 @@ class Login extends Model
         session('loginstatus', $res['status'], 'admin');
         session('loginauth', $auth_arr, 'admin');
 
-        return ['code' => 1, 'msg' => '登录成功', 'mid' => $res['id']];
+        return ['code' => 1, 'msg' => '登录成功', 'mid' => $res['id'],'type'=>3,'errorcode'=>4];
 
     }
 

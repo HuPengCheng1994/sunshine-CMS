@@ -67,7 +67,13 @@ class Article extends Common
                 $this->error($validate->getError());
             }
             $result = $this->model->save($data);
-            $result ? $this->success('添加成功') : $this->error('添加失败');
+            if($result){
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$this->model->id,1);
+                $this->success('添加成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,0,3);
+                $this->error('添加失败');
+            }
         }
     }
 
@@ -113,8 +119,13 @@ class Article extends Common
                 $this->error($validate->getError());
             }
             $result = $this->model->save($data, ['id' => $id]);
-
-            $result ? $this->success('修改成功') : $this->error('修改失败');
+            if($result){
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$id,1);
+                $this->success('编辑成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,$id,1);
+                $this->error('编辑失败');
+            }
         }
     }
 
@@ -127,8 +138,15 @@ class Article extends Common
     public function delete($id)
     {
         if (Request()->isAjax() && Request()->isGet()) {
-            $result = $this->model->destroy($id);
-            $result ? $this->success('删除成功') : $this->error('删除失败');
+            $article = $this->model->get($id);
+            $result  = $article->delete();
+            if($result) {
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$article['title'],3);
+                $this->success('删除成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,$article['title'],3);
+                $this->error('删除失败');
+            }
         }
     }
 }

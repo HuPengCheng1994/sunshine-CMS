@@ -32,8 +32,14 @@ class Config extends Common
                 $this->error($validate->getError());
             }
             $config           = $this->model->get(1);
-            $config ? $result = $this->model->save($data, ['id' => 1]) : $result = $this->model->save($data);
-            $result ? $this->success('编辑成功') : $this->error('编辑失败');
+            $config ? $result = $config->save($data, ['id' => 1]) : $result = $config->save($data);
+            if($result){
+                $this->log->saveLog(true,'update',$this->mca,$this->c,$config->id,1);
+                $this->success('编辑成功');
+            } else {
+                $this->log->saveLog(false,'update',$this->mca,$this->c,0,1);
+                $this->error('编辑失败');
+            }
 
         } else {
             $data = ConfigModel::get(1);

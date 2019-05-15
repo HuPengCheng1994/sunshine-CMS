@@ -72,12 +72,19 @@ class User extends Common
                 // 提交事务
                 $this->model->commit();
                 $this->model->roles()->commit();
-                return ['code' => '1', 'msg' => '添加成功'];
+                $result = true;
             } catch (\Exception $e) {
                 // 回滚事务
                 $this->model->rollback();
                 $this->model->roles()->rollback();
-                return ['code' => '1', 'msg' => '添加失败'];
+                $result = false;
+            }
+            if($result){
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$this->model->id,1);
+                $this->success('添加成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,0,3);
+                $this->error('添加失败');
             }
 
         }
@@ -153,12 +160,20 @@ class User extends Common
                 // 提交事务
                 $user->commit();
                 $ur->commit();
-                return ['code' => '1', 'msg' => '编辑成功'];
+                $result = true;
             } catch (\Exception $e) {
                 // 回滚事务
                 $user->rollback();
                 $ur->rollback();
-                return ['code' => '1', 'msg' => '编辑失败'];
+                $result = false;
+            }
+
+            if($result){
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$id,1);
+                $this->success('编辑成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,$id,1);
+                $this->error('编辑失败');
             }
         }
     }
@@ -185,12 +200,19 @@ class User extends Common
                 // 提交事务
                 $user->commit();
                 $user->roles()->commit();
-                return ['code' => '1', 'msg' => '删除成功'];
+                $result = true;
             } catch (\Exception $e) {
                 // 回滚事务
                 $user->rollback();
                 $user->roles()->rollback();
-                return ['code' => '1', 'msg' => '删除失败'];
+                $result = false;
+            }
+            if($result) {
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$user['nickname'],3);
+                $this->success('删除成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,$user['nickname'],3);
+                $this->error('删除失败');
             }
         }
     }

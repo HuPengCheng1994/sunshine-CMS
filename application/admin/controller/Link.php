@@ -56,7 +56,13 @@ class Link extends Common
             $this->error($validate->getError());
         }
         $result = $this->model->save($data);
-        $result ? $this->success('添加成功') : $this->error('添加失败');
+        if($result){
+            $this->log->saveLog(true,$this->a,$this->mca,$this->c,$this->model->id,1);
+            $this->success('添加成功');
+        } else {
+            $this->log->saveLog(false,$this->a,$this->mca,$this->c,0,3);
+            $this->error('添加失败');
+        }
     }
 
     /**
@@ -84,7 +90,13 @@ class Link extends Common
                 $this->error($validate->getError());
             }
             $result = $this->model->save($update, ['id' => $id]);
-            $result ? $this->success('修改成功') : $this->error('修改失败');
+            if($result){
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$id,1);
+                $this->success('编辑成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,$id,1);
+                $this->error('编辑失败');
+            }
         }
     }
 
@@ -100,7 +112,13 @@ class Link extends Common
             $link   = $this->model->get($id);
             $link['pic'] ? @unlink('./'.$link['pic']) : '';
             $result = $link->delete();
-            $result ? $this->success('删除成功') : $this->error('删除失败');
+            if($result) {
+                $this->log->saveLog(true,$this->a,$this->mca,$this->c,$link['name'],3);
+                $this->success('删除成功');
+            } else {
+                $this->log->saveLog(false,$this->a,$this->mca,$this->c,$link['name'],3);
+                $this->error('删除失败');
+            }
         }
     }
 
