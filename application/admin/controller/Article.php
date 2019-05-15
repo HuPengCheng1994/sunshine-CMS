@@ -22,7 +22,7 @@ class Article extends Common
      */
     public function index($cid)
     {
-        $data = $this->model->where('cid', $cid)->select();
+        $data = $this->model->where('cid', $cid)->paginate(10);
         $nowCate = $this->model->getNowCate($cid);
         $this->assign(['nowCate' => $nowCate, 'data' => $data]);
         switch ($nowCate['type']) {
