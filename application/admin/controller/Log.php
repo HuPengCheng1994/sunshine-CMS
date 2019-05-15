@@ -23,9 +23,9 @@ class Log extends Common
     {
         $data = $this->model->relation('user')->paginate(10);
         if(!isset($data['page'])){
-            $data['page'] = 1; 
+            $page = 1;
         }
-        return view('index', ['data' => $data,'page'=>$data['page']]);
+        return view('index', ['data' => $data,'page'=>$page]);
     }
 
     /**
