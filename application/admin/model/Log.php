@@ -9,6 +9,14 @@ use think\Model;
 class Log extends Model
 {
 
+    protected $autoWriteTimestamp = true;   //时间戳自动写入
+
+    //获取器
+    protected function getCreateTimeAttr($value)
+    {
+        return date('Y-m-d H:i:s', $value);
+    }
+
     public function user()
     {
         return $this->belongsTo('User','mid','id');
@@ -47,11 +55,10 @@ class Log extends Model
                 break;
         }
         $ip          = request()->ip();
-        $mid         =       session('loginid', '', 'admin');
+        $mid         = session('loginid', '', 'admin');
         $data        = [
 			'mid'     =>$mid,
 			'ip'      =>$ip,
-			'time'    =>time(),
 			'msg'     =>$msg,
 			'type'    =>$type,
 			'content' =>$content

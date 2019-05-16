@@ -5,5 +5,5 @@ use think\Model;
 
 class Link extends Model
 {
-	
+	protected $autoWriteTimestamp = true;
 }

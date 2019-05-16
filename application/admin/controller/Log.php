@@ -21,11 +21,10 @@ class Log extends Common
      */
     public function index()
     {
-        $data = $this->model->relation('user')->paginate(10);
-        if(!isset($data['page'])){
-            $page = 1;
-        }
-        return view('index', ['data' => $data,'page'=>$page]);
+        $data = $this->model->relation('user')->order('create_time','desc')->paginate(10);
+        $currentPage = $data->currentPage();       //获取当前页
+        $listRows = $data->listRows();  //获取分页数
+        return view('index', ['data' => $data,'currentPage'=>$currentPage,'listRows'=>$listRows]);
     }
 
     /**

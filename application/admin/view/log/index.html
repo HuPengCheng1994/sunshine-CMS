@@ -74,7 +74,7 @@
                                 <tbody>
                                 {volist name="data" id="vo" key="k"}
                                 <tr>
-                                    <td>{$k+($page-1)*10}</td>
+                                    <td>{$k+($currentPage-1)*$listRows}</td>
                                     <td>
                                         {switch $vo['type'] }
                                             {case 1}<span class="label label-primary label-xs">普通</span>{/case}
@@ -84,7 +84,7 @@
                                     </td>
                                     <td>{$vo['user']['nickname']}</td>
                                     <td>{$vo['ip']}</td>
-                                    <td>{:date('Y-m-d H:i:s',$vo['time'])}</td>
+                                    <td>{$vo['create_time']}</td>
                                     <td style="text-align:left">{$vo['msg']}</td>
                                     <td style="text-align:left">{$vo['content']}</td>
                                 </tr>

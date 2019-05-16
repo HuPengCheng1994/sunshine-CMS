@@ -73,9 +73,9 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            {volist name="link" id="vo"}
+                                            {volist name="link" id="vo" key="k"}
                                             <tr>
-                                                <td style="line-height:50px">{$i}</td>
+                                                <td style="line-height:50px">{$k+($currentPage-1)*$listRows}</td>
                                                 <td style="line-height:50px">{$vo['name']}</td>
                                                 <td style="line-height:50px">{$vo['url']}</td>
                                                 <td><img height="50"  src="{$vo['pic']}"></td>

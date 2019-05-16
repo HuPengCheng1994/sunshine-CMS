@@ -75,9 +75,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {volist name="link" id="vo"}
+                                {volist name="link" id="vo" key="k"}
                                 <tr>
-                                    <td>{$i}</td>
+                                    <td>{$k+($currentPage-1)*$listRows}</td>
                                     <td>{$vo['name']}</td>
                                     <td>{$vo['url']}</td>
                                     <td>{switch name="$vo['status']" }

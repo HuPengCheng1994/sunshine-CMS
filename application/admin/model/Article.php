@@ -12,6 +12,14 @@ class Article extends Model
     // 设置完整的数据表（包含前缀）
     protected $table = 'think_article';
 
+    protected $autoWriteTimestamp = true;   //时间戳自动写入
+
+    //获取器
+    protected function getCreateTimeAttr($value)
+    {
+        return date('Y-m-d H:i:s', $value);
+    }
+
     public function getNowCate($id)
     {
         $nowCate             = CateModel::where('id', $id)->find();

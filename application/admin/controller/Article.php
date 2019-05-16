@@ -22,7 +22,9 @@ class Article extends Common
      */
     public function index($cid)
     {
-        $data = $this->model->where('cid', $cid)->paginate(10);
+        $data = $this->model->where('cid', $cid)->order('create_time','desc')->paginate(10);
+        $currentPage = $data->currentPage();       //获取当前页
+        $listRows = $data->listRows();  //获取分页数
         $nowCate = $this->model->getNowCate($cid);
         $this->assign(['nowCate' => $nowCate, 'data' => $data]);
         switch ($nowCate['type']) {
@@ -31,10 +33,10 @@ class Article extends Common
                 return view('page', ['article' => $article]);
                 break;
             case '2':
-                return view('list');
+                return view('list', ['currentPage' => $currentPage,'listRows'=>$listRows]);
                 break;
             case '3':
-                return view('image');
+                return view('image', ['currentPage' => $currentPage,'listRows'=>$listRows]);
                 break;
         }
     }

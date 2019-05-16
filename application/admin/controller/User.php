@@ -27,11 +27,13 @@ class User extends Common
     {
         $keyword = input('keyword');
         if (empty($keyword)) {
-            $data = $this->model->where('type', 1)->paginate(10);
+            $data = $this->model->where('type', 1)->order('create_time','desc')->paginate(10);
         } else {
-            $data = $this->model->where('account|nickname|phone|email', 'like', '%' . $keyword . '%')->where('type', 1)->paginate(10, false, ['query' => request()->param()]);
+            $data = $this->model->where('account|nickname|phone|email', 'like', '%' . $keyword . '%')->where('type', 1)->order('create_time','desc')->paginate(10, false, ['query' => request()->param()]);
         }
-        return view('index', ['data' => $data, 'keyword' => $keyword]);
+        $currentPage = $data->currentPage();       //获取当前页
+        $listRows    = $data->listRows();  //获取分页数
+        return view('index', ['data' => $data, 'keyword' => $keyword,'currentPage' => $currentPage,'listRows'=>$listRows]);
     }
 
     /**

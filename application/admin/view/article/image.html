@@ -76,12 +76,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {volist name="data" id="vo"}
+                                {volist name="data" id="vo" key="k"}
                                 <tr>
-                                    <td>{$i}</td>
+                                    <td>{$k+($currentPage-1)*$listRows}</td>
                                     <td>{$vo.title}</td>
                                     <td>{$vo.author}</td>
-                                    <td>{:date('Y-m-d',$vo.time)}</td>
+                                    <td>{$vo.create_time}</td>
                                     <td>{switch name="$vo['status']" }
                                         {case value="1"}<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-heart"></i> 正常</button>{/case}
                                         {case value="0"}<button type="button" class="btn btn-xs btn-warning"><i class="fa fa-heartbeat"></i> 禁用</button>{/case}

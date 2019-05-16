@@ -20,8 +20,10 @@ class Link extends Common
      */
     public function image()
     {
-        $link = $this->model->where('type', 2)->paginate(10);
-        return $this->fetch('image', ['link' => $link]);
+        $link = $this->model->where('type', 2)->order('create_time','desc')->paginate(10);
+        $currentPage = $link->currentPage();       //获取当前页
+        $listRows = $link->listRows();  //获取分页数
+        return $this->fetch('image', ['link' => $link, 'currentPage' => $currentPage,'listRows'=>$listRows]);
     }
 
     /**
@@ -30,8 +32,10 @@ class Link extends Common
      */
     public function text()
     {
-        $link = $this->model->where('type', 1)->paginate(10);
-        return $this->fetch('text', ['link' => $link]);
+        $link = $this->model->where('type', 1)->order('create_time','desc')->paginate(10);
+        $currentPage = $link->currentPage();       //获取当前页
+        $listRows = $link->listRows();  //获取分页数
+        return $this->fetch('text', ['link' => $link,  'currentPage' => $currentPage,'listRows'=>$listRows]);
     }
 
     /**
