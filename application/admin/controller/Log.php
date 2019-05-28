@@ -19,12 +19,27 @@ class Log extends Common
      *
      * @return \think\Response
      */
-    public function index()
+    public function index($type=0)
     {
-        $data = $this->model->relation('user')->order('create_time','desc')->paginate(10);
+        switch ($type) {
+            case '0':
+                $data = $this->model->relation('user')->order('create_time','desc')->paginate(10);
+                break;
+            case '1':
+                $data = $this->model->relation('user')->where('type',1)->order('create_time','desc')->paginate(10);
+                break;
+            case '2':
+                $data = $this->model->relation('user')->where('type',2)->order('create_time','desc')->paginate(10);
+                break;
+            case '3':
+                $data = $this->model->relation('user')->where('type',3)->order('create_time','desc')->paginate(10);
+                break;
+        }
+
+        
         $currentPage = $data->currentPage();       //获取当前页
         $listRows = $data->listRows();  //获取分页数
-        return view('index', ['data' => $data,'currentPage'=>$currentPage,'listRows'=>$listRows]);
+        return view('index', ['data' => $data,'currentPage'=>$currentPage,'listRows'=>$listRows,'type'=>$type]);
     }
 
     /**

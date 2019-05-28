@@ -33,7 +33,7 @@ class Login extends Model
             $log = [
                 'mid'  => $result['mid'],
                 'ip'   => request()->ip(),
-                'time' => time(),
+                'create_time' => time(),
                 'msg'  => $msg,
                 'type' => $result['type'],
             ];
@@ -106,7 +106,7 @@ class Login extends Model
         session('loginstatus', $res['status'], 'admin');
         session('loginauth', $auth_arr, 'admin');
 
-        return ['code' => 1, 'msg' => '登录成功', 'mid' => $res['id'],'type'=>3,'errorcode'=>4];
+        return ['code' => 1, 'msg' => '登录成功', 'mid' => $res['id'],'type'=>2,'errorcode'=>4];
 
     }
 

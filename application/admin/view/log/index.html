@@ -51,13 +51,14 @@
                     </div>
                     <div class="ibox-content">
                         <div class="row">
-                            <!-- <div class="col-sm-9 m-b-xs">
-                                <div class="btn-group btn-group-toggle">
-                                    <a href="{:url('admin/user/create')}" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-user"></i> 添加用户</a>
-                                </div>
-                            </div> -->
-                        </div>
+                            <div class="col-sm-2 m-b-xs">
+                                <select class="form-control m-b" name="account" id="log">
+                                    <option value="0" {eq name="$type" value="0"}selected{/eq}>全部</option>
+                                    <option value="1" {eq name="$type" value="1"}selected{/eq}>普通</option>
+                                    <option value="2" {eq name="$type" value="2"}selected{/eq}>注意</option>
+                                    <option value="3" {eq name="$type" value="3"}selected{/eq}>警告</option>
+                                </select>
+                            </div>
                         <div class="table-responsive" style="margin-top:10px;">
                             <table class="table table-striped">
                                 <thead>
@@ -109,7 +110,14 @@
 </div>
 {/block}
 {block name="js"}
-
+    <script type="text/javascript">
+        $(document).ready(function(){  
+    　　　　$('#log').change(function(){  
+    　　　　　   var log = $(this).children('option:selected').val();
+                window.location.href = "{:url('admin/log/index')}?type="+log;
+    　　　　})  
+        })
+    </script>
 {/block}
 
 {/block}
